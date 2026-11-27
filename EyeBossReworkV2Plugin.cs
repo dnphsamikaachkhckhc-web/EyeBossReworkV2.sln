@@ -680,14 +680,6 @@ namespace EyeBossReworkV2
             }
         }
 
-        private void HandleSurrenderIdle(NPC boss)
-        {
-            boss.dontTakeDamage = true;
-            boss.velocity = Vector2.Zero;
-            boss.Center = _state.SurrenderPos;
-            TSPlayer.All.SendData(PacketTypes.NpcUpdate, "", boss.whoAmI);
-        }
-
         private void MaintainTrueEyesAbovePlayers()
         {
             const int tenSecondsTicks = 600;
