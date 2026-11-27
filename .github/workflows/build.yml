@@ -19,10 +19,13 @@ jobs:
           dotnet-version: '6.0.x'
 
       - name: Restore and Build DLL
-        run: dotnet build EyeBossReworkV2/EyeBossReworkV2.csproj -c Release
+        run: |
+          CSPROJ=$(find . -maxdepth 3 -name "*.csproj" | head -n 1)
+          echo "Using project: $CSPROJ"
+          dotnet build "$CSPROJ" -c Release
 
       - name: Upload DLL Artifact
         uses: actions/upload-artifact@v4
         with:
           name: EyeBossReworkV2-DLL
-          path: EyeBossReworkV2/bin/Release/net6.0/EyeBossReworkV2.dll
+          path: "**/bin/Release/net6.0/*.dll"
