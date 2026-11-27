@@ -1,0 +1,28 @@
+name: Build EyeBossReworkV2
+
+on:
+  push:
+    branches: [ "**" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Restore and Build DLL
+        run: dotnet build EyeBossReworkV2/EyeBossReworkV2.csproj -c Release
+
+      - name: Upload DLL Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: EyeBossReworkV2-DLL
+          path: EyeBossReworkV2/bin/Release/net6.0/EyeBossReworkV2.dll
